@@ -604,10 +604,23 @@ ifeq ($(CONFIG_XTENSA),)
 LDPPFLAGS	+= -ansi
 endif
 
+ifeq ("$(origin ZFL)", "command line")
+  KBUILD_ZFL_DEBUG = $(ZFL)
+endif
+ifndef KBUILD_ZFL_DEBUG
+  KBUILD_ZFL_DEBUG = 0
+endif
+
+ifeq ($(KBUILD_ZFL_DEBUG),1)
+	KBUILD_CFLAGS	+= -O0
+else
+
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os
 else
 KBUILD_CFLAGS	+= -O2
+endif
+
 endif
 
 KBUILD_CFLAGS += $(call cc-option,-fno-stack-protector)

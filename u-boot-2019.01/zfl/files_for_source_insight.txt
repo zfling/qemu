@@ -2257,3 +2257,4 @@ test/overlay/Makefile
 test/env/Makefile
 cmd/Makefile
 env/Makefile
+include/configs/vexpress_common.h

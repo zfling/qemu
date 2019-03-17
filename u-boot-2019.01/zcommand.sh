@@ -10,6 +10,8 @@ function warning_print () {
 	echo "--- 4 uboot start ---"
 	echo "--- 5 uboot stop ---"
 	echo "--- 6 uboot start debug ---"
+	echo "--- 7 uboot make for debug -o0 ---"
+	
 	exit 0 
 } 
 
@@ -17,7 +19,7 @@ if [ -z $1 ] ; then
 	warning_print
 fi
 
-if [ $1 -gt 6 ] ; then
+if [ $1 -gt 7 ] ; then
 	warning_print
 fi
 
@@ -54,5 +56,11 @@ fi
 if [ $1 -eq 6 ] ; then
 	echo "--- uboot start debug ---> "
 	./uboot_start_debug.sh
+	exit 0
+fi
+
+if [ $1 -eq 7 ] ; then
+	echo "--- uboot make for debug -o0 ---> "
+	./uboot_make_debug.sh
 	exit 0
 fi
