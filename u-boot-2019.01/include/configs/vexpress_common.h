@@ -248,4 +248,9 @@
 /* Monitor Command Prompt */
 #define CONFIG_SYS_CBSIZE		512	/* Console I/O Buffer Size */
 
+/* QEMU virtual network */
+#define CONFIG_IPADDR   192.168.3.111 /*板子的ip*/
+#define CONFIG_NETMASK  255.255.255.0
+#define CONFIG_SERVERIP 192.168.3.70  /*虚拟机ip*/
+
 #endif /* VEXPRESS_COMMON_H */
