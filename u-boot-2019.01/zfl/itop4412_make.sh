@@ -2,6 +2,9 @@
 
 cd ../
 
+rm u-boot.bin
+rm spl/itop4412-spl.bin
+
 make
 
 cp u-boot.bin ./zfl/
@@ -17,6 +20,6 @@ else
 fi
 
 cp itop4412-spl.bin ../zfl/
-echo "copy u-boot-spl.bin done."
+echo "copy itop4412-spl.bin done."
 
 echo "build success !!!"

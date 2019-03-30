@@ -85,14 +85,17 @@ static int uclass_cpu_init(struct uclass *uc)
 	struct udevice *dev;
 	ofnode node;
 	int ret;
-
+    zfl_debug("[uclass_cpu_init]\n");
 	node = ofnode_path("/cpus");
-	if (!ofnode_valid(node))
-		return 0;
+	if (!ofnode_valid(node)) {
+        zfl_debug("[uclass_cpu_init] ofnode_valid\n");
+        return 0;
+    }
+		
 
 	ret = device_bind_driver_to_node(dm_root(), "cpu_bus", "cpus", node,
 					 &dev);
-
+    zfl_debug("[uclass_cpu_init] ret = %d\n", ret);
 	return ret;
 }
 

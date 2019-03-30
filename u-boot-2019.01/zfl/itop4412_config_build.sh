@@ -2,6 +2,8 @@
 
 cd ../
 
+make distclean
+
 make itop4412_zfl_defconfig
 echo "make itop4412_zfl_defconfig !"
 
@@ -20,6 +22,6 @@ else
 fi
 
 cp itop4412-spl.bin ../zfl/
-echo "copy u-boot-spl.bin done."
+echo "copy itop4412-spl.bin done."
 
 echo "build success !!!"

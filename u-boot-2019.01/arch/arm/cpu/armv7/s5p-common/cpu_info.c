@@ -34,7 +34,7 @@ int print_cpuinfo(void)
 {
 	const char *cpu_model;
 	int len;
-
+    zfl_debug("[cpu_info.c print_cpuinfo]\n");
 	/* For SoC with no real CPU ID in naming convention. */
 	cpu_model = fdt_getprop(gd->fdt_blob, 0, "cpu-model", &len);
 	if (cpu_model)

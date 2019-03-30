@@ -175,10 +175,14 @@ static int print_cpuinfo(void)
 	struct udevice *dev;
 	char desc[512];
 	int ret;
-
+    
+    zfl_debug("[print_cpuinfo.c print_cpuinfo]\n");
+    
 	ret = uclass_first_device_err(UCLASS_CPU, &dev);
 	if (ret) {
 		debug("%s: Could not get CPU device (err = %d)\n",
+		      __func__, ret);
+        zfl_debug("%s: Could not get CPU device (err = %d)\n",
 		      __func__, ret);
 		return ret;
 	}
@@ -186,6 +190,8 @@ static int print_cpuinfo(void)
 	ret = cpu_get_desc(dev, desc, sizeof(desc));
 	if (ret) {
 		debug("%s: Could not get CPU description (err = %d)\n",
+		      dev->name, ret);
+        zfl_debug("%s: Could not get CPU description (err = %d)\n",
 		      dev->name, ret);
 		return ret;
 	}

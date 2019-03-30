@@ -83,7 +83,7 @@ fi
 
 if [ $1 -eq 10 ] ; then
 	echo "--- itop4412 write to sd card ---> "
-	./itop4412_write.sh
+	sudo ./itop4412_write.sh
 	exit 0
 fi
 

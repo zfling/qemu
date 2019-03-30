@@ -12,6 +12,8 @@
 #include <dm/uclass-id.h>
 #include <linux/list.h>
 
+/* #define CONFIG_LOG */
+
 /** Log levels supported, ranging from most to least important */
 enum log_level_t {
 	LOGL_EMERG = 0,		/*U-Boot is unstable */

@@ -277,16 +277,23 @@ const struct fdt_property *fdt_get_property_namelen(const void *fdt,
 	     (offset >= 0);
 	     (offset = fdt_next_property_offset(fdt, offset))) {
 		const struct fdt_property *prop;
-
+        
+        //printf("[fdt_get_property_namelen] offset = %d\n", offset);
+        
 		if (!(prop = fdt_get_property_by_offset(fdt, offset, lenp))) {
 			offset = -FDT_ERR_INTERNAL;
 			break;
 		}
+        
+        //printf("[fdt_get_property_namelen] nameoff = %d\n", prop->nameoff);
+        
 		if (_fdt_string_eq(fdt, fdt32_to_cpu(prop->nameoff),
 				   name, namelen))
 			return prop;
 	}
-
+         
+    //printf("[fdt_get_property_namelen] wrong: offset = %d\n", offset);
+         
 	if (lenp)
 		*lenp = offset;
 	return NULL;
@@ -304,7 +311,7 @@ const void *fdt_getprop_namelen(const void *fdt, int nodeoffset,
 				const char *name, int namelen, int *lenp)
 {
 	const struct fdt_property *prop;
-
+    //printf("[fdt_getprop_namelen]\n");
 	prop = fdt_get_property_namelen(fdt, nodeoffset, name, namelen, lenp);
 	if (!prop)
 		return NULL;

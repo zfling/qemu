@@ -364,7 +364,7 @@ CONFIG_AUTOBOOT=y
 CONFIG_CMD_BDI=y
 # CONFIG_CMD_CONFIG is not set
 CONFIG_CMD_CONSOLE=y
-CONFIG_CMD_CPU=y
+# CONFIG_CMD_CPU is not set
 # CONFIG_CMD_LICENSE is not set
 
 #
@@ -673,7 +673,7 @@ CONFIG_HAVE_BLOCK_DEVICE=y
 # Clock
 #
 # CONFIG_CLK is not set
-CONFIG_CPU=y
+# CONFIG_CPU is not set
 
 #
 # Hardware crypto devices
