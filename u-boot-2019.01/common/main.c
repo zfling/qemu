@@ -57,7 +57,9 @@ void main_loop(void)
 	s = bootdelay_process();
 	if (cli_process_fdt(&s))
 		cli_secure_boot_cmd(s);
-
+    
+    zfl_debug("[main_loop] s = %s\n", s);
+    
 	autoboot_command(s);
 
 	cli_loop();

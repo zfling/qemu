@@ -71,10 +71,15 @@ static int list_leds(void)
 	return 0;
 }
 
+#define CMD_LED_DEBUG //defined by zfl
+
 int do_led(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 {
 	enum led_state_t cmd;
 	const char *led_label;
+    
+#ifndef CMD_LED_DEBUG //defined by zfl
+
 	struct udevice *dev;
 #ifdef CONFIG_LED_BLINK
 	int freq_ms = 0;
@@ -123,7 +128,32 @@ int do_led(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 		printf("LED '%s' operation failed (err=%d)\n", led_label, ret);
 		return CMD_RET_FAILURE;
 	}
+#else
+    int ret;
+    ret = 0;
+	/* Validate arguments */
+	if (argc < 2)
+		return CMD_RET_USAGE;
+	led_label = argv[1];
+	if (*led_label == 'l') {
+        printf("led list\n");
+        return 0;
+    }
+		
+	cmd = argc > 2 ? get_led_cmd(argv[2]) : LEDST_COUNT;
 
+	switch (cmd) {
+	case LEDST_OFF:
+	case LEDST_ON:
+	case LEDST_TOGGLE:
+		printf("led on | off | toggle\n");
+		break;
+
+	case LEDST_COUNT:
+		printf("led count\n");
+		break;
+	}
+#endif
 	return 0;
 }
 
