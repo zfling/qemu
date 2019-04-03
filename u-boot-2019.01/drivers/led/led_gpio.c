@@ -58,12 +58,15 @@ static int led_gpio_probe(struct udevice *dev)
 	struct led_uc_plat *uc_plat = dev_get_uclass_platdata(dev);
 	struct led_gpio_priv *priv = dev_get_priv(dev);
 	int ret;
-
+    zfl_debug("[led_gpio_probe]\n");
 	/* Ignore the top-level LED node */
 	if (!uc_plat->label)
 		return 0;
 
 	ret = gpio_request_by_name(dev, "gpios", 0, &priv->gpio, GPIOD_IS_OUT);
+    
+    zfl_debug("[func] %s ret(%d)\n", __FUNCTION__, ret);
+    
 	if (ret)
 		return ret;
 
@@ -82,7 +85,7 @@ static int led_gpio_remove(struct udevice *dev)
 	if (dm_gpio_is_valid(&priv->gpio))
 		dm_gpio_free(dev, &priv->gpio);
 #endif
-
+    zfl_debug("[led_gpio_remove] \n");
 	return 0;
 }
 
@@ -91,24 +94,31 @@ static int led_gpio_bind(struct udevice *parent)
 	struct udevice *dev;
 	ofnode node;
 	int ret;
-
+    zfl_debug("[led_gpio_bind] \n");
 	dev_for_each_subnode(node, parent) {
 		struct led_uc_plat *uc_plat;
 		const char *label;
 
 		label = ofnode_read_string(node, "label");
+        
 		if (!label) {
 			debug("%s: node %s has no label\n", __func__,
+			      ofnode_get_name(node));
+            zfl_debug("%s: node %s has no label\n", __func__,
 			      ofnode_get_name(node));
 			return -EINVAL;
 		}
 		ret = device_bind_driver_to_node(parent, "gpio_led",
 						 ofnode_get_name(node),
 						 node, &dev);
+        
+        zfl_debug("[led_gpio_bind] [function]%s: ret(%d)\n", __FUNCTION__, ret);
+        
 		if (ret)
 			return ret;
 		uc_plat = dev_get_uclass_platdata(dev);
 		uc_plat->label = label;
+        zfl_debug("[led_gpio_bind] [function]%s: uc_plat->label(%s)\n", __FUNCTION__, uc_plat->label);
 	}
 
 	return 0;

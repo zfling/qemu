@@ -1926,3 +1926,6 @@ api/api_private.h
 zfl/itop4412_si_new.txt
 cmd/led.c
 cmd/legacy_led.c
+drivers/led/led-uclass.c
+drivers/led/led_gpio.c
+doc/device-tree-bindings/gpio/gpio.txt

@@ -275,7 +275,7 @@ static int dm_scan_fdt_node(struct udevice *parent, const void *blob,
 	     offset > 0;
 	     offset = fdt_next_subnode(blob, offset)) {
 		const char *node_name = fdt_get_name(blob, offset, NULL);
-
+        zfl_debug("parsing subnodes of \"%s\"\n", node_name);
 		/*
 		 * The "chosen" and "firmware" nodes aren't devices
 		 * themselves but may contain some:
@@ -365,6 +365,7 @@ int dm_extended_scan_fdt(const void *blob, bool pre_reloc_only)
 	ret = dm_scan_fdt(gd->fdt_blob, pre_reloc_only);
 	if (ret) {
 		debug("dm_scan_fdt() failed: %d\n", ret);
+        zfl_debug("dm_scan_fdt() failed: %d\n", ret);
 		return ret;
 	}
 

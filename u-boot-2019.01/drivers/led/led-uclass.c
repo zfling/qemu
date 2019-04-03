@@ -19,11 +19,14 @@ int led_get_by_label(const char *label, struct udevice **devp)
 	int ret;
 
 	ret = uclass_get(UCLASS_LED, &uc);
+    zfl_debug("[func] %s uclass_get ret(%d)\n", __FUNCTION__, ret);
 	if (ret)
 		return ret;
 	uclass_foreach_dev(dev, uc) {
 		struct led_uc_plat *uc_plat = dev_get_uclass_platdata(dev);
-
+        
+        zfl_debug("[func] %s uc_plat->label(%s)\n", __FUNCTION__, uc_plat->label);
+        
 		/* Ignore the top-level LED node */
 		if (uc_plat->label && !strcmp(label, uc_plat->label))
 			return uclass_get_device_tail(dev, 0, devp);

@@ -133,10 +133,10 @@
 /* #define CONFIG_PRINTF */
 /* #define DEBUG */
 
-#define ZFL_DEBUG
+//#define ZFL_DEBUG
 #ifdef ZFL_DEBUG
 #define zfl_debug(fmt, args...) printf(fmt, ##args)
 #else
-#define zfl_debug(fmt)
+#define zfl_debug(fmt, args...)
 #endif
 #endif	/* __CONFIG_H */

@@ -222,13 +222,16 @@ int uclass_find_first_device(enum uclass_id id, struct udevice **devp)
 
 	*devp = NULL;
 	ret = uclass_get(id, &uc);
+    zfl_debug("[func]%s ret(%d)\n", __FUNCTION__, ret);
 	if (ret)
 		return ret;
 	if (list_empty(&uc->dev_head))
 		return 0;
 
 	*devp = list_first_entry(&uc->dev_head, struct udevice, uclass_node);
-
+    
+    zfl_debug("[func]%s ret(%d) *devp == NULL(%d)\n", __FUNCTION__, ret, (*devp == NULL));
+    
 	return 0;
 }
 
@@ -433,9 +436,13 @@ int uclass_get_device_tail(struct udevice *dev, int ret, struct udevice **devp)
 {
 	if (ret)
 		return ret;
-
+    
 	assert(dev);
+
+    zfl_debug("[func] %s\n", __FUNCTION__);
+    
 	ret = device_probe(dev);
+    zfl_debug("[func] %s device_probe ret(%d)\n", __FUNCTION__, ret);
 	if (ret)
 		return ret;
 

@@ -50,12 +50,16 @@ static int list_leds(void)
 {
 	struct udevice *dev;
 	int ret;
-
+    
+    zfl_debug("[list_leds]\n");
+    
 	for (uclass_find_first_device(UCLASS_LED, &dev);
 	     dev;
 	     uclass_find_next_device(&dev)) {
 		struct led_uc_plat *plat = dev_get_uclass_platdata(dev);
 
+        zfl_debug("[func] %s plat->label(%s)\n", __FUNCTION__, plat->label);
+        
 		if (!plat->label)
 			continue;
 		printf("%-15s ", plat->label);
@@ -71,7 +75,7 @@ static int list_leds(void)
 	return 0;
 }
 
-#define CMD_LED_DEBUG //defined by zfl
+//#define CMD_LED_DEBUG //defined by zfl
 
 int do_led(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 {
@@ -101,6 +105,8 @@ int do_led(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 		freq_ms = simple_strtoul(argv[3], NULL, 10);
 	}
 #endif
+    zfl_debug("[func] %s led_label(%s)\n", __FUNCTION__, led_label);
+
 	ret = led_get_by_label(led_label, &dev);
 	if (ret) {
 		printf("LED '%s' not found (err=%d)\n", led_label, ret);

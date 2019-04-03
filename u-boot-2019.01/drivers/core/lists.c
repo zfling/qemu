@@ -140,8 +140,10 @@ int lists_bind_fdt(struct udevice *parent, ofnode node, struct udevice **devp,
 		*devp = NULL;
 	name = ofnode_get_name(node);
 	pr_debug("bind node %s\n", name);
-
+    zfl_debug("[func] %s bind node %s\n", __FUNCTION__, name);
 	compat_list = ofnode_get_property(node, "compatible", &compat_length);
+    zfl_debug("[func] %s compat_list(%s)\n", __FUNCTION__, compat_list);
+    
 	if (!compat_list) {
 		if (compat_length == -FDT_ERR_NOTFOUND) {
 			pr_debug("Device '%s' has no compatible string\n",
@@ -150,6 +152,7 @@ int lists_bind_fdt(struct udevice *parent, ofnode node, struct udevice **devp,
 		}
 
 		dm_warn("Device tree error at node '%s'\n", name);
+        zfl_debug("[func] %s Device tree error at node '%s'\n", __FUNCTION__, name);
 		return compat_length;
 	}
 
@@ -162,7 +165,8 @@ int lists_bind_fdt(struct udevice *parent, ofnode node, struct udevice **devp,
 		compat = compat_list + i;
 		pr_debug("   - attempt to match compatible string '%s'\n",
 			 compat);
-
+        zfl_debug("   - attempt to match compatible string '%s'\n",
+			 compat);
 		for (entry = driver; entry != driver + n_ents; entry++) {
 			ret = driver_check_compatible(entry->of_match, &id,
 						      compat);
@@ -179,6 +183,7 @@ int lists_bind_fdt(struct udevice *parent, ofnode node, struct udevice **devp,
 		}
 
 		pr_debug("   - found match at '%s'\n", entry->name);
+        zfl_debug("   - found match at '%s'\n", entry->name);
 		ret = device_bind_with_driver_data(parent, entry, name,
 						   id->data, node, &dev);
 		if (ret == -ENODEV) {
